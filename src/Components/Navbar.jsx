@@ -4,17 +4,9 @@ export default function Navbar() {
 
     const links = <>
 
-    <li>
-    <NavLink to="/">Home</NavLink>
-    </li>
-    {/* <NavLink to='/'><li><a href="">Home</a></li></NavLink> */}
-    <li>
-    <NavLink to='/login'>Login</NavLink>
-    </li>
-<li>
-
-    <NavLink to='/register'>Register</NavLink>
-</li>
+    <li><NavLink to="/">Home</NavLink></li>
+    <li><NavLink to='/login'>Login</NavLink></li>
+    <li><NavLink to='/register'>Register</NavLink></li>
     </>
 
   return (
