@@ -7,24 +7,26 @@ export const AuthContext = createContext(null);
 const AuthProvider = ({ children }) => {
     // got access of the children bcz Router Provider is a children of the Auth Provider on the main.jsx file
 
-    const [user, setUser] = useState(null)
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-
-    const name = 'Mursalin';
 
     // Create an User
     const createUser = (email, password) => {
         return createUserWithEmailAndPassword(auth, email, password);
+        setLoading(true)
     }
     // Sign in the User
     const signInUser = (email, password) => {
-        return signInWithEmailAndPassword(auth, email, password)
+        return signInWithEmailAndPassword(auth, email, password);
+        setLoading(true)
     }
     // Sign out User
     const signOutUser = () =>{
         signOut(auth)
         .then((result)=>{})
         .catch((error)=>{})
+        setLoading(true)
     }
 
 
@@ -46,7 +48,8 @@ const AuthProvider = ({ children }) => {
     useEffect(()=>{
         const unSubscribe = onAuthStateChanged(auth, (currentUser)=>{
             console.log("Current USER" , currentUser)
-            setUser(currentUser)
+            setUser(currentUser);
+            setLoading(false)
         })
         // component unmount (clean-up fn)
         return ()=>{
@@ -55,14 +58,9 @@ const AuthProvider = ({ children }) => {
     },[])
 
 
-
-
-
-
-
     const authInfo = {
-        name,
         user,
+        loading,
         createUser,
         signInUser,
         signOutUser
