@@ -1,21 +1,20 @@
-import { useContext } from "react"
-import { NavLink } from "react-router-dom"
-import AuthContext from "../Providers/AuthProvider"
+import React, { useContext } from 'react';
+import { Link, NavLink } from 'react-router-dom';
+import { AuthContext } from '../Providers/AuthProvider';
 
-export default function Navbar() {
+const NavBar = () => {
 
-  const authInfo = useContext(AuthContext)
-  console.log(authInfo)
+    const authInfo = useContext(AuthContext);
+    console.log(authInfo.user)
 
-  const links = <>
-
+    const links = <>
     <li><NavLink to="/">Home</NavLink></li>
     <li><NavLink to='/login'>Login</NavLink></li>
     <li><NavLink to='/register'>Register</NavLink></li>
   </>
 
-  return (
-    <div className="navbar bg-base-100">
+    return (
+        <div className="navbar bg-base-100">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -38,7 +37,9 @@ export default function Navbar() {
             {links}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">Pvt Route</a>
+        <Link to='/'>
+        <p className="text-xl">Pvt Route</p>
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
@@ -49,5 +50,7 @@ export default function Navbar() {
         <a className="btn">MN?</a>
       </div>
     </div>
-  )
-}
+    );
+};
+
+export default NavBar;
