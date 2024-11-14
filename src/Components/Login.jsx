@@ -1,26 +1,40 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Providers/AuthProvider";
 
 export default function Login() {
+  const navigate = useNavigate()
 
-  const {signInUser} = useContext(AuthContext);
+  const {signInUser, signInWithGoogle} = useContext(AuthContext);
 
   const handleLogin = (e) => {
     e.preventDefault();
 
     const email = e.target.email.value;
     const password = e.target.password.value;
-    console.log(email, password)
+    // console.log(email, password)
 
     // Sign In User
     signInUser(email, password)
     .then((result) => {
-      console.log(result.user)
+      // console.log(result.user)
+      e.target.reset();
+      navigate('/')
     })
     .catch((error)=>{
       console.log("ERROR",error.message)
     })
+  }
+
+  const handleGoogleSignIn = () =>{
+signInWithGoogle()
+.then((result)=>{
+  console.log(result.user)
+  navigate('/')
+})
+.catch((error)=>{
+  console.log(error)
+})
   }
 
   return (
@@ -50,6 +64,8 @@ export default function Login() {
           <button className="btn btn-primary">Login</button>
         </div>
       </form>
+      <p className="divider">Or</p>
+      <p onClick={handleGoogleSignIn} className="w-full bg-gray-600 text-white text-center py-2 rounded-lg cursor-pointer">Sign in with GOOGLE</p>
       <p className="text-center mb-4">
       Don't have an account ?
       <Link to='/register' className="underline"> Register Now</Link>

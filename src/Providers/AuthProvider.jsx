@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import auth from "../firebase.init";
 
@@ -6,7 +6,7 @@ export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
     // got access of the children bcz Router Provider is a children of the Auth Provider on the main.jsx file
-
+    const provider = new GoogleAuthProvider();
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -20,6 +20,10 @@ const AuthProvider = ({ children }) => {
     const signInUser = (email, password) => {
         return signInWithEmailAndPassword(auth, email, password);
         setLoading(true)
+    }
+    // Sign in with Google
+    const signInWithGoogle = () =>{
+        return signInWithPopup(auth, provider)
     }
     // Sign out User
     const signOutUser = () =>{
@@ -63,6 +67,7 @@ const AuthProvider = ({ children }) => {
         loading,
         createUser,
         signInUser,
+        signInWithGoogle,
         signOutUser
     }
 

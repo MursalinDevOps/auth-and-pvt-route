@@ -12,7 +12,10 @@ const NavBar = () => {
     <li><NavLink to='/login'>Login</NavLink></li>
     <li><NavLink to='/register'>Register</NavLink></li>
     {
-      user && <li><NavLink to='/secrets'>Secrets</NavLink></li>
+      user && <>
+        <li><NavLink to='/secrets'>Secrets</NavLink></li>
+        <li><NavLink to='/profile'>Profile</NavLink></li>
+      </>
     }
   </>
 
@@ -45,7 +48,7 @@ const NavBar = () => {
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
+        <ul className="menu menu-horizontal">
           {links}
         </ul>
       </div>
